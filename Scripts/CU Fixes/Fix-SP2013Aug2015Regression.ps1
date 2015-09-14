@@ -1,15 +1,15 @@
 #-----------------------------------------------------------------------------
 # Name:           	Fix-SP2013Aug2015Regression.ps1 
 # Description:     	This script will fix the August 2015 CU Regression
-# Usage:        	Run the function
+# Usage:        	Run the script
 # By:             	Ivan Josipovic, Softlanding.ca 
 #-----------------------------------------------------------------------------
 $ScriptLoc = "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\15\TEMPLATE\LAYOUTS\FORM.JS";
 $ScriptDebugLoc = "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\15\TEMPLATE\LAYOUTS\FORM.debug.js";
 
 #Fix Main File
-$Script = Get-Content $ScriptLoc
-if($Script.indexof("else{if(IndexOfIllegalCharInUrlLeafName(c)!=-1)") -ne -1){
+$Script = Get-Content $ScriptLoc;
+if($Script.IndexOf("else{if(IndexOfIllegalCharInUrlLeafName(c)!=-1)") -ne -1){
 	# Backup File
 	Copy-Item -Path $ScriptLoc -Destination $($ScriptLoc + "_bak");
 	# Modify File
@@ -21,8 +21,8 @@ if($Script.indexof("else{if(IndexOfIllegalCharInUrlLeafName(c)!=-1)") -ne -1){
 }
 
 #Fix Debug File
-$ScriptDebug = Get-Content $ScriptDebugLoc
-if($ScriptDebug.indexof("if (IndexOfIllegalCharInUrlLeafName(filename) != -1) {") -ne -1){
+$ScriptDebug = Get-Content $ScriptDebugLoc -Raw;
+if($ScriptDebug.IndexOf("if (IndexOfIllegalCharInUrlLeafName(filename) != -1) {") -ne -1){
 	# Backup File
 	Copy-Item -Path $ScriptDebugLoc -Destination $($ScriptDebugLoc + "_bak");
 	# Modify File
