@@ -8,7 +8,7 @@ $ScriptLoc = "C:\Program Files\Common Files\microsoft shared\Web Server Extensio
 $ScriptDebugLoc = "C:\Program Files\Common Files\microsoft shared\Web Server Extensions\15\TEMPLATE\LAYOUTS\FORM.debug.js";
 
 #Fix Main File
-$Script = Get-Content $ScriptLoc;
+$Script = Get-Content $ScriptLoc -Raw;
 if($Script.IndexOf("else{if(IndexOfIllegalCharInUrlLeafName(c)!=-1)") -ne -1){
 	# Backup File
 	Copy-Item -Path $ScriptLoc -Destination $($ScriptLoc + "_bak");
@@ -18,7 +18,7 @@ if($Script.IndexOf("else{if(IndexOfIllegalCharInUrlLeafName(c)!=-1)") -ne -1){
 	Out-File -FilePath $ScriptLoc -InputObject $Script;
 	Write-Host "FORM.JS is patched.";
 } else {
-	Write-Host "FORM.JS was already patched."
+	Write-Host "FORM.JS was already patched.";
 }
 
 #Fix Debug File
