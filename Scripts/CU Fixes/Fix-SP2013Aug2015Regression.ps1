@@ -16,6 +16,7 @@ if($Script.IndexOf("else{if(IndexOfIllegalCharInUrlLeafName(c)!=-1)") -ne -1){
 	$Script = $Script.Replace("else{if(IndexOfIllegalCharInUrlLeafName(c)!=-1)", 'else{var j=c.substring(c.lastIndexOf("\\")+1);if(IndexOfIllegalCharInUrlLeafName(j)!=-1)');
 	# Save File
 	Out-File -FilePath $ScriptLoc -InputObject $Script;
+	Write-Host "FORM.JS is patched.";
 } else {
 	Write-Host "FORM.JS was already patched."
 }
@@ -29,6 +30,7 @@ if($ScriptDebug.IndexOf("if (IndexOfIllegalCharInUrlLeafName(filename) != -1) {"
 	$ScriptDebug = $ScriptDebug.Replace("if (IndexOfIllegalCharInUrlLeafName(filename) != -1) {", "var filNameOnly = filename.substring(filename.lastIndexOf('\\') + 1);`r`n`tif (IndexOfIllegalCharInUrlLeafName(filNameOnly) != -1) {");
 	# Save File
 	Out-File -FilePath $ScriptDebugLoc -InputObject $ScriptDebug;
+	Write-Host "FORM.debug.js is patched.";
 } else {
-	Write-Host "FORM.debug.js was already patched."
+	Write-Host "FORM.debug.js was already patched.";
 }
